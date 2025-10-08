@@ -17,5 +17,3 @@ export function installPinia(app: App): Pinia {
   app.use(pinia);
   return pinia;
 }
-
-export type PiniaInstance = Pinia;

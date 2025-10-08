@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { Account } from '@/entities/account/model/types'
 import { useEditAccount } from '../model/useEditAccount'
-const props = defineProps<{ account: Account; id: string }>()
 
-const { form, isLocal, saveField } = useEditAccount(props.account)
+const props = defineProps<{ id: string; account: Account }>()
+const { form, isLocal, saveField } = useEditAccount(props.id, props.account)
 </script>
 
 <template>

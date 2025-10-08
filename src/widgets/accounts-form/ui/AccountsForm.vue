@@ -5,5 +5,8 @@
 <script setup lang="ts">
 import AccountFields from '@/features/edit-account/ui/AccountFields.vue'
 import { useAccountsStore } from '@/entities/account/model/store'
-const { getEntries } = useAccountsStore()
+import { storeToRefs } from 'pinia'
+
+const store = useAccountsStore()
+const { getEntries } = storeToRefs(store)
 </script>
