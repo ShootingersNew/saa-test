@@ -1,5 +1,11 @@
 <template>
-  <AccountFields v-for="[id, account] in getEntries" :key="id" :account="account" :id="id" />
+  <AccountFields
+    @delete="(id: string) => store.remove(id)"
+    v-for="[id, account] in getEntries"
+    :key="id"
+    :account="account"
+    :id="id"
+  />
 </template>
 
 <script setup lang="ts">
