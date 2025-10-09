@@ -1,54 +1,43 @@
 # saa-test
 
-This template should help get you started developing with Vue 3 in Vite.
+Это тестовое задание.
 
-## Recommended IDE Setup
+## Что было использовано
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+FSD, vue3, vuetify, Pinia
 
-## Recommended Browser Setup
+### Изначальный текст задания
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd) 
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+Необходимо реализовать форму управления учетными записями.
+Время на выполнение задания, максимум 2 дня.
 
-## Type Support for `.vue` Imports in TS
+Результатом выполнения работы, является ссылка на github/gitlab репозиторий с историей коммитов.
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+Макет представлен для примера, главное соблюдать тз, структуру и расположение полей, визуальное отображение можно сделать по своему предпочтению.
 
-## Customize configuration
+Стек:
+Vue.js 3 + Composition API (фреймворк)
+TypeScript (язык)
+Pinia (стейт менеджер)
+Любой UI фреймворк на выбор.
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+Форма состоит из:
+Заголовка и кнопки добавления учетной записи.
+Подсказки для поля метка.
+Списка учетных записей с лейблами полей.
 
-## Project Setup
+Учетная запись состоит из:
+Метка - Необязательное поле к заполнению. Максимум 50 символов. В поле вводятся текстовые метки, через знак ;
+Тип записи - Выпадающий список. Допускаются выборы из заранее предопределенных вариантов:
+LDAP - При выборе этого типа - поле "Пароль" скрывается и сохраняется как null
+Локальная - При выборе этого типа - поле "Пароль" показывается и сохраняется как введенное значение
+Логин - Обязательное к заполнению. Максимум 100 символов
+Пароль - Обязательное к заполнению. Отображается в случае выбора значения "Локальная" в поле "Тип записи". Максимум 100 символов
+Кнопки удаления учетной записи.
 
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test:unit
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+Логика работы формы:
+По нажатию кнопки "+" в конец списка учетных записей, добавляется новая пустая запись, состоящая из: Метки, Типа записи, Логина, Пароля.
+При нажатии кнопки удаления, учетная запись должна полностью удалиться.
+По окончанию ввода значений в поля учетной записи (для текстовых - потеря фокуса, для селекта - изменение значения), происходит валидация обязательных полей. В случае валидности - учетная запись сохраняется/обновляется, в обратном, поля обозначаются красной обводкой.
+Все поля сохраняются в текстовом виде, кроме поле Метка. Оно должно преобразовываться в массив, где один элемент это строковое значение до ;. В массиве должен лежать объект, где поле text равно одному элементу метки - ({ text: элемент метки })
+Сохранение учетной записи должно происходить в стейт менеджер. При обновлении страницы, сохраненные учетные записи должны отображаться.
