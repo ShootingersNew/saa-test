@@ -4,7 +4,7 @@
 
 ## Что было использовано
 
-FSD, vue3, vuetify, Pinia
+vue3, vuetify, Pinia. От себя добавил FSD
 
 ### Изначальный текст задания
 

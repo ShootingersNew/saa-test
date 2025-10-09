@@ -18,3 +18,10 @@ export function validatePassword(type: AccountType, raw: string | null | undefin
   if (password.length > MAX_PASSWORD_LEN) return `Превышена длина > ${MAX_PASSWORD_LEN}`;
   return null;
 }
+
+
+export function validateRequiredAll(type: AccountType, login: string, password: string | null | undefined) {
+  const loginErr = validateLogin(login);
+  const passwordErr = validatePassword(type, password);
+  return { loginErr, passwordErr, ok: !loginErr && !passwordErr };
+}

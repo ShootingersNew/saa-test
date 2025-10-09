@@ -13,13 +13,7 @@
     <v-col cols="3">Пароль</v-col>
     <v-col cols="1" class="text-right">&nbsp;</v-col>
   </v-row>
-  <AccountFields
-    @delete="(id: string) => store.remove(id)"
-    v-for="[id, account] in getEntries"
-    :key="id"
-    :account="account"
-    :id="id"
-  />
+  <AccountFields v-for="[id, account] in getEntries" :key="id" :account="account" :id="id" />
 </template>
 
 <script setup lang="ts">

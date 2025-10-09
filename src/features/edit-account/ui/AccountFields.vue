@@ -6,6 +6,7 @@ import {
   MAX_LOGIN_LEN,
   MAX_PASSWORD_LEN,
 } from '@/shared/lib/validation/accountValidation'
+import DeleteButton from '@/features/delete-account/ui/DeleteButton.vue'
 
 const props = defineProps<{ id: string; account: Account }>()
 const { form, isLocal, saveField, fieldErrors } = useEditAccount(props.id, props.account)
@@ -70,13 +71,7 @@ const { form, isLocal, saveField, fieldErrors } = useEditAccount(props.id, props
       />
     </v-col>
     <v-col cols="1" class="text-right">
-      <v-btn
-        @click="$emit('delete', props.id)"
-        icon="mdi-delete"
-        size="small"
-        variant="text"
-        color="error"
-      />
+      <DeleteButton :id="props.id" />
     </v-col>
   </v-row>
 </template>

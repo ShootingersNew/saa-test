@@ -9,7 +9,8 @@ import {
   normalizeLogin,
   normalizePassword,
 } from '@/entities/account/lib/normalizers'
-import { validateLogin, validatePassword } from '@/shared/lib/validation/accountValidation'
+import { validateRequiredAll as validateRequiredAllShared } from '@/shared/lib/validation/accountValidation'
+import { diffAccount } from '@/entities/account/lib/diff'
 
 interface EditAccountForm {
   labelString: string
@@ -38,11 +39,10 @@ export function useEditAccount(accountId: string, snapshot: Account) {
   const isLocal = computed(() => form.type === 'local')
 
   function validateRequiredAll(): boolean {
-    const loginErr = validateLogin(form.login)
-    const pwdErr = validatePassword(form.type, form.password)
+    const { loginErr, passwordErr, ok } = validateRequiredAllShared(form.type, form.login, form.password)
     fieldErrors.login = loginErr
-    fieldErrors.password = pwdErr
-    return !loginErr && !pwdErr
+    fieldErrors.password = passwordErr
+    return ok
   }
 
   function makeSnapshot(): Account {
@@ -52,19 +52,6 @@ export function useEditAccount(accountId: string, snapshot: Account) {
       login: normalizeLogin(form.login),
       password: normalizePassword(form.type, form.password),
     }
-  }
-
-  function diffAccount(current: Account | undefined, next: Account): Partial<Account> {
-    const patch: Partial<Account> = {}
-    if (!current || current.login !== next.login) patch.login = next.login
-    if (!current || current.type !== next.type) patch.type = next.type
-    if (!current || current.password !== next.password) patch.password = next.password
-    const labelsChanged =
-      !current ||
-      current.labels.length !== next.labels.length ||
-      current.labels.some((l, i) => l.text !== next.labels[i]?.text)
-    if (labelsChanged) patch.labels = next.labels
-    return patch
   }
 
   function saveField(field: FieldKey): void {
