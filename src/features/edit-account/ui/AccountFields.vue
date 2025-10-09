@@ -8,19 +8,21 @@ import {
 } from '@/shared/lib/validation/accountValidation'
 
 const props = defineProps<{ id: string; account: Account }>()
-const { form, isLocal, saveField } = useEditAccount(props.id, props.account)
+const { form, isLocal, saveField, fieldErrors } = useEditAccount(props.id, props.account)
 </script>
 
 <template>
   <v-row dense class="align-center mb-2" no-gutters>
     <v-col cols="3">
       <v-text-field
+        variant="outlined"
         v-model="form.labelString"
         label="Метка"
         density="compact"
         @blur="saveField('labelString')"
-        hide-details
+        :error="!!fieldErrors.labelString"
         :maxLength="MAX_LABEL_LEN"
+        hide-details
       />
     </v-col>
     <v-col cols="2">
@@ -38,29 +40,33 @@ const { form, isLocal, saveField } = useEditAccount(props.id, props.account)
             saveField('type')
           }
         "
+        :error="!!fieldErrors.type"
         hide-details
       />
     </v-col>
-    <v-col cols="3">
+    <v-col :cols="isLocal ? 3 : 6">
       <v-text-field
+        variant="outlined"
         v-model="form.login"
-        label="Логин"
+        :error="!!fieldErrors.login"
+        label="Логин *"
         density="compact"
         @blur="saveField('login')"
         hide-details
-        :maxLength="MAX_LOGIN_LEN"
+        :maxlength="MAX_LOGIN_LEN"
       />
     </v-col>
-    <v-col cols="3">
+    <v-col cols="3" v-if="isLocal">
       <v-text-field
-        v-if="isLocal"
+        variant="outlined"
         v-model="form.password"
-        label="Пароль"
+        :error="!!fieldErrors.password"
+        label="Пароль *"
         type="password"
         density="compact"
         @blur="saveField('password')"
         hide-details
-        :maxLength="MAX_PASSWORD_LEN"
+        :maxlength="MAX_PASSWORD_LEN"
       />
     </v-col>
     <v-col cols="1" class="text-right">

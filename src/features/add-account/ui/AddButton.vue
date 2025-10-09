@@ -6,5 +6,5 @@ function onClick() {
 }
 </script>
 <template>
-  <v-btn color="primary" size="small" @click="onClick" prepend-icon="mdi-plus">Добавить</v-btn>
+  <v-btn color="primary" size="small" @click="onClick" prepend-icon="mdi-plus"></v-btn>
 </template>
